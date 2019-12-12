@@ -1,6 +1,19 @@
 package com.example.demo.dto;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+
+import org.hibernate.annotations.GenericGenerator;
+
+@Entity
 public class Producto {
+	@Id
+	@GeneratedValue(generator = "UUID")
+	@GenericGenerator(
+			name = "UUID",
+			strategy = "org.hibernate.id.UUIDGenerator"
+		)
 	private String codigo;
 	private String nombre;
 	private Double valor;
@@ -22,4 +35,5 @@ public class Producto {
 	public void setValor(Double valor) {
 		this.valor = valor;
 	}
+	
 }

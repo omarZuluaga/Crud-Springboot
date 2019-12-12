@@ -1,6 +1,7 @@
 package com.example.demo.exceptions;
 
 
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import org.springframework.http.HttpStatus;
@@ -16,7 +17,7 @@ public class ExceptionsHandler {
 	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
 	public ErrorCode handlerException(Exception e) {
 		ErrorCode ec = new ErrorCode();
-		ec.setCodigo("err 1");
+		ec.setCodigo(this.Id());
 		ec.setMensaje("error papá");
 		logError(ec, e);
 		return ec;
@@ -25,7 +26,7 @@ public class ExceptionsHandler {
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorCode registroNoEncontrado(RegistroNoEncontradoException e) {
 		ErrorCode ec = new ErrorCode();
-		ec.setCodigo("err 2");
+		ec.setCodigo(this.Id());
 		ec.setMensaje(e.getMessage());
 		logError(ec, e);
 		return ec;
@@ -36,6 +37,10 @@ public class ExceptionsHandler {
 		LOG.severe(ec.getCodigo());
 		LOG.severe(ec.getMensaje());
 		LOG.severe(e.getMessage());
+	}
+	
+	public String Id() {
+		return UUID.randomUUID().toString();
 	}
 	
 }
