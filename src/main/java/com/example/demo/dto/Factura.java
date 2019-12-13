@@ -1,24 +1,25 @@
 package com.example.demo.dto;
 
+import java.util.List;
+
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
 
 @Entity
-public class Factura {
-	@Id
-	@GeneratedValue(generator = "UUID")
-	@GenericGenerator(
-			name = "UUID",
-			strategy = "org.hibernate.id.UUIDGenerator"
-		)
-	private String codigo;
+public class Factura extends BaseEntity{
+
 	private Double ValorTotal;
 	private String cliente;
 	private int numero;
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = Item.class)
+	private List<Item> items;
+	
 	public Double getValorTotal() {
 		return ValorTotal;
 	}
@@ -36,5 +37,11 @@ public class Factura {
 	}
 	public void setNumero(int numero) {
 		this.numero = numero;
+	}
+	public void setItems(List<Item> item) {
+		this.items = item;
+	}
+	public List<Item> getItems(){
+		return items;
 	}
 }

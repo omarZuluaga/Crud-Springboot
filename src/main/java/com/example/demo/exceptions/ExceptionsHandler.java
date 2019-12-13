@@ -32,6 +32,25 @@ public class ExceptionsHandler {
 		return ec;
 	}
 	
+	@ExceptionHandler(ValorNoPermitidoException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode valorInferior(ValorNoPermitidoException e) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.Id());
+		ec.setMensaje(e.getMessage());
+		logError(ec, e);
+		return ec;
+	}
+	
+	@ExceptionHandler(ExtendetCodeException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode extendetCodeException(ExtendetCodeException e) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.Id());
+		ec.setMensaje(e.getMessage());
+		logError(ec, e);
+		return ec;
+	}
 	private static final Logger LOG = Logger.getLogger(ExceptionHandler.class.getName());
 	private void logError(ErrorCode ec, Exception e) {
 		LOG.severe(ec.getCodigo());
