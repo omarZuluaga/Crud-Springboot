@@ -9,7 +9,7 @@ import javax.persistence.OneToOne;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
-public class Producto extends BaseEntity{
+public class ProductoDto extends BaseEntity{
 	
 	private String nombre;
 	private Double valor;

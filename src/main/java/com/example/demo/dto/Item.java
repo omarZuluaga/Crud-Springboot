@@ -13,8 +13,8 @@ import org.hibernate.annotations.GenericGenerator;
 @Entity
 public class Item extends BaseEntity{
 	
-	@OneToOne(targetEntity = Producto.class)
-	private Producto producto;
+	@OneToOne(targetEntity = ProductoDto.class)
+	private ProductoDto producto;
 	private int cantidad;
 	private Double ValorTotal;
 
@@ -31,10 +31,10 @@ public class Item extends BaseEntity{
 	public void setValorTotal(Double valorTotal) {
 		this.ValorTotal = valorTotal;
 	}
-	public Producto getProducto() {
+	public ProductoDto getProducto() {
 		return producto;
 	}
-	public void setProducto(Producto producto) {
+	public void setProducto(ProductoDto producto) {
 		this.producto = producto;
 	}
 

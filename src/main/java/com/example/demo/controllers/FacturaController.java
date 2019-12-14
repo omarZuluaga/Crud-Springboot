@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Factura;
 import com.example.demo.dto.Item;
-import com.example.demo.dto.Producto;
+import com.example.demo.dto.ProductoDto;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.repository.FacturaRepository;
 import com.example.demo.repository.ItemRepository;
@@ -36,10 +36,10 @@ public class FacturaController {
 			codigos.add(item.getProducto().getCodigo());
 		}
 		List<Item> guardarEnFactura = new ArrayList();
-		List<Producto> productos = productoRepository.findAllById(codigos);
+		List<ProductoDto> productos = productoRepository.findAllById(codigos);
 		Double vT = 0.0;
 		for (Item item : factura.getItems()) {
-			for (Producto pro : productos) {
+			for (ProductoDto pro : productos) {
 				if (pro.getCodigo().equals(item.getProducto().getCodigo())) {
 					item.setProducto(pro); 
 					item.setValorTotal(item.getCantidad()*pro.getValor());

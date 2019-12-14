@@ -42,6 +42,16 @@ public class ExceptionsHandler {
 		return ec;
 	}
 	
+	@ExceptionHandler(BadFormatoException.class)
+	@ResponseStatus(HttpStatus.BAD_REQUEST)
+	public ErrorCode badFormatoException(BadFormatoException e) {
+		ErrorCode ec = new ErrorCode();
+		ec.setCodigo(this.Id());
+		ec.setMensaje(e.getMessage());
+		logError(ec, e);
+		return ec;
+	}
+	
 	@ExceptionHandler(ExtendetCodeException.class)
 	@ResponseStatus(HttpStatus.BAD_REQUEST)
 	public ErrorCode extendetCodeException(ExtendetCodeException e) {
