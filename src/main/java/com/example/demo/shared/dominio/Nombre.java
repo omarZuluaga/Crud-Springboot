@@ -5,7 +5,7 @@ import com.example.demo.exceptions.BadFormatoException;
 public class Nombre {
 	private final String value;
 	public Nombre(String nombre) {
-		if((nombre.matches("*[A-Z]"))) {
+		if((nombre.matches("[A-Z].*"))) {
 			throw new BadFormatoException();
 		}
 		this.value = nombre;

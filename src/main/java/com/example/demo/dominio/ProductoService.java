@@ -8,5 +8,5 @@ public interface ProductoService {
 	public List<Producto> buscarPorIds(List<Codigo> codigos);
 	public void guardar (Producto producto);
 	public Producto buscarXId(Codigo codigo);
-	
+	public List<Producto> buscarTodo();
 }
