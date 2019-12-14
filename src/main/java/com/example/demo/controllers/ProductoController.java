@@ -31,6 +31,7 @@ public class ProductoController {
 	
 	@PostMapping
 	void crear(@RequestBody ProductoDto producto) {
+		producto.setCodigo( UUID.randomUUID().toString());
 		productoService.guardar(productoMapper.recibir(producto));
 	}
 	
