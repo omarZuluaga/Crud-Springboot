@@ -1,4 +1,4 @@
-package com.example.demo.dominio;
+package com.example.demo.dominio.models;
 
 import com.example.demo.shared.dominio.Codigo;
 import com.example.demo.shared.dominio.Nombre;

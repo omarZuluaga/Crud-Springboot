@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.infraestructura.dto;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,10 +10,10 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.example.demo.infraestructura.dto.ProductoDto;
+import com.example.demo.dto.BaseEntity;
 
 @Entity
-public class Item extends BaseEntity{
+public class ItemDto extends BaseEntity{
 	
 	@OneToOne(targetEntity = ProductoDto.class)
 	private ProductoDto producto;

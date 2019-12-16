@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.dominio.Producto;
-import com.example.demo.dominio.ProductoService;
+import com.example.demo.dominio.models.Producto;
+import com.example.demo.dominio.service.ProductoService;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 import com.example.demo.shared.dominio.Codigo;
@@ -28,18 +28,18 @@ public class ProductoAdapter implements ProductoService{
 	
 	@Override
 	public List<Producto> buscarTodo(){
-		return productoMapper.recibir(productoRepository.findAll());
+		return productoMapper.apiRecibir(productoRepository.findAll());
 	}
 
 	@Override
 	public void guardar(Producto producto) {
-		productoRepository.save(productoMapper.convertir(producto));
+		productoRepository.save(productoMapper.apiConvertir(producto));
 	}
 
 	@Override
 	public Producto buscarXId(Codigo codigo) {
 		// TODO Auto-generated method stub
-		return productoMapper.recibir(productoRepository.findById(codigo.getValue()).get());
+		return productoMapper.apiRecibir(productoRepository.findById(codigo.getValue()).get());
 	}
 	
 	public void eliminar (Codigo codigo) {
@@ -47,6 +47,6 @@ public class ProductoAdapter implements ProductoService{
 	}
 	
 	public void actualizar(Producto producto) {
-		productoRepository.save(productoMapper.convertir(producto));
+		productoRepository.save(productoMapper.apiConvertir(producto));
 	}
 }

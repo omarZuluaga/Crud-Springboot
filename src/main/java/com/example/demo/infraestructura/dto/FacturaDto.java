@@ -1,4 +1,4 @@
-package com.example.demo.dto;
+package com.example.demo.infraestructura.dto;
 
 import java.util.List;
 
@@ -10,15 +10,17 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.example.demo.dto.BaseEntity;
+
 
 @Entity
-public class Factura extends BaseEntity{
+public class FacturaDto extends BaseEntity{
 
 	private Double ValorTotal;
 	private String cliente;
 	private int numero;
-	@OneToMany(cascade = CascadeType.ALL, targetEntity = Item.class)
-	private List<Item> items;
+	@OneToMany(cascade = CascadeType.ALL, targetEntity = ItemDto.class)
+	private List<ItemDto> items;
 	
 	public Double getValorTotal() {
 		return ValorTotal;
@@ -38,10 +40,10 @@ public class Factura extends BaseEntity{
 	public void setNumero(int numero) {
 		this.numero = numero;
 	}
-	public void setItems(List<Item> item) {
+	public void setItems(List<ItemDto> item) {
 		this.items = item;
 	}
-	public List<Item> getItems(){
+	public List<ItemDto> getItems(){
 		return items;
 	}
 }

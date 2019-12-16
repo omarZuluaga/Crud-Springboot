@@ -1,0 +1,27 @@
+package com.example.demo.infraestructura.dto;
+
+public class ProductoRest {
+	private String codigo;
+	private String nombre;
+	private Double valor;
+	
+	
+	public String getNombre() {
+		return nombre;
+	}
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+	public Double getValor() {
+		return valor;
+	}
+	public void setValor(Double valor) {
+		this.valor = valor;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+}

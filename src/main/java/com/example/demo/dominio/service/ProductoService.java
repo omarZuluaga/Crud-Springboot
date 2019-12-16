@@ -1,7 +1,8 @@
-package com.example.demo.dominio;
+package com.example.demo.dominio.service;
 
 import java.util.List;
 
+import com.example.demo.dominio.models.Producto;
 import com.example.demo.shared.dominio.Codigo;
 
 public interface ProductoService {
