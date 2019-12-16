@@ -9,4 +9,6 @@ public interface ProductoService {
 	public void guardar (Producto producto);
 	public Producto buscarXId(Codigo codigo);
 	public List<Producto> buscarTodo();
+	public void eliminar (Codigo codigo);
+	public void actualizar (Producto producto);
 }

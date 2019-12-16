@@ -10,6 +10,8 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.example.demo.infraestructura.dto.ProductoDto;
+
 @Entity
 public class Item extends BaseEntity{
 	

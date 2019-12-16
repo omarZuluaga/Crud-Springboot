@@ -42,4 +42,11 @@ public class ProductoAdapter implements ProductoService{
 		return productoMapper.recibir(productoRepository.findById(codigo.getValue()).get());
 	}
 	
+	public void eliminar (Codigo codigo) {
+		productoRepository.deleteById(codigo.getValue());
+	}
+	
+	public void actualizar(Producto producto) {
+		productoRepository.save(productoMapper.convertir(producto));
+	}
 }

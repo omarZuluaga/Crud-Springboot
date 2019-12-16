@@ -3,7 +3,7 @@ package com.example.demo.infraestructura.mapper;
 import org.springframework.stereotype.Component;
 
 import com.example.demo.dominio.Producto;
-import com.example.demo.dto.ProductoDto;
+import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.shared.dominio.Codigo;
 import com.example.demo.shared.dominio.Nombre;
 import com.example.demo.shared.dominio.Valor;

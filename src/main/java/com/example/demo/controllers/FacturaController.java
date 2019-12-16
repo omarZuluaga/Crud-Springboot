@@ -13,8 +13,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.Factura;
 import com.example.demo.dto.Item;
-import com.example.demo.dto.ProductoDto;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
+import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 import com.example.demo.repository.FacturaRepository;
 import com.example.demo.repository.ItemRepository;
