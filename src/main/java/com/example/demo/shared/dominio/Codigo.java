@@ -5,7 +5,7 @@ import com.example.demo.exceptions.ExtendetCodeException;
 public class Codigo {
 	private final String value;
 	public Codigo (String codigo) {
-		if(codigo.length()>=64 || codigo.length()<=32) {
+		if(codigo.length()>=64) {
 			throw new ExtendetCodeException();
 		}
 		this.value = codigo;

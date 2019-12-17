@@ -28,18 +28,18 @@ public class ProductoAdapter implements ProductoService{
 	
 	@Override
 	public List<Producto> buscarTodo(){
-		return productoMapper.apiRecibir(productoRepository.findAll());
+		return productoMapper.listDtoToDominio(productoRepository.findAll());
 	}
 
 	@Override
 	public void guardar(Producto producto) {
-		productoRepository.save(productoMapper.apiConvertir(producto));
+		productoRepository.save(productoMapper.dominioToDto(producto));
 	}
 
 	@Override
 	public Producto buscarXId(Codigo codigo) {
 		// TODO Auto-generated method stub
-		return productoMapper.apiRecibir(productoRepository.findById(codigo.getValue()).get());
+		return productoMapper.dtoToDominio(productoRepository.findById(codigo.getValue()).get());
 	}
 	
 	public void eliminar (Codigo codigo) {
@@ -47,6 +47,6 @@ public class ProductoAdapter implements ProductoService{
 	}
 	
 	public void actualizar(Producto producto) {
-		productoRepository.save(productoMapper.apiConvertir(producto));
+		productoRepository.save(productoMapper.dominioToDto(producto));
 	}
 }

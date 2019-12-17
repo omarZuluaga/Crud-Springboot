@@ -16,7 +16,6 @@ import com.example.demo.infraestructura.dto.FacturaDto;
 import com.example.demo.infraestructura.dto.ItemDto;
 import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.repository.database.FacturaRepository;
-import com.example.demo.infraestructura.repository.database.ItemRepository;
 import com.example.demo.infraestructura.repository.database.ProductoRepository;
 
 @RestController
@@ -24,8 +23,6 @@ import com.example.demo.infraestructura.repository.database.ProductoRepository;
 public class FacturaController {
 	@Autowired
 	private FacturaRepository facturaRepository;
-	@Autowired
-	private ItemRepository itemRepository;
 	@Autowired
 	private ProductoRepository productoRepository;
 

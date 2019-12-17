@@ -14,13 +14,13 @@ import com.example.demo.shared.infrastructure.mapper.MapperRest;
 @Component
 public class ProductoMapper implements MapperApiRest<Producto, ProductoDto>, MapperRest<Producto, ProductoRest>{
 	@Override
-	public Producto apiRecibir(ProductoDto o) { 
+	public Producto dtoToDominio(ProductoDto o) { 
 		return Producto.of(new Nombre(o.getNombre()), new Valor(o.getValor()), new Codigo(o.getCodigo()));
 	
 	}
 
 	@Override
-	public ProductoDto apiConvertir(Producto i) {
+	public ProductoDto dominioToDto(Producto i) {
 		ProductoDto pd = new ProductoDto();
 		pd.setCodigo(i.getCodigo().getValue());
 		pd.setNombre(i.getNombre().getValue());
@@ -29,13 +29,13 @@ public class ProductoMapper implements MapperApiRest<Producto, ProductoDto>, Map
 	}
 
 	@Override
-	public Producto recibir(ProductoRest b) {
+	public Producto restToDominio(ProductoRest b) {
 		
 		return Producto.of(new Nombre(b.getNombre()), new Valor(b.getValor()), new Codigo(b.getCodigo()));
 	}
 
 	@Override
-	public ProductoRest convertir(Producto a) {
+	public ProductoRest dominioToRest(Producto a) {
 		ProductoRest pr = new ProductoRest();
 		pr.setCodigo(a.getCodigo().getValue());
 		pr.setNombre(a.getNombre().getValue());

@@ -4,8 +4,15 @@ public class ProductoRest {
 	private String codigo;
 	private String nombre;
 	private Double valor;
-	
-	
+	public ProductoRest() {
+		// TODO Auto-generated constructor stub
+	}
+	public ProductoRest(String codigo, String nombre, Double valor) {
+		super();
+		this.codigo = codigo;
+		this.nombre = nombre;
+		this.valor = valor;
+	}
 	public String getNombre() {
 		return nombre;
 	}

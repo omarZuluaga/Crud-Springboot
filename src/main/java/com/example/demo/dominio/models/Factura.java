@@ -2,7 +2,6 @@ package com.example.demo.dominio.models;
 
 import java.util.List;
 
-import com.example.demo.infraestructura.dto.ItemDto;
 import com.example.demo.shared.dominio.Cantidad;
 import com.example.demo.shared.dominio.Codigo;
 import com.example.demo.shared.dominio.Nombre;
