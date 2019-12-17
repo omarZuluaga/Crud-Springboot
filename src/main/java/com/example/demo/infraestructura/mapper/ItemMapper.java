@@ -1,5 +1,7 @@
 package com.example.demo.infraestructura.mapper;
 
+import org.springframework.stereotype.Component;
+
 import com.example.demo.dominio.models.Item;
 import com.example.demo.dominio.models.Producto;
 import com.example.demo.infraestructura.dto.ItemDto;
@@ -14,12 +16,12 @@ import com.example.demo.shared.dominio.ValorTotal;
 import com.example.demo.shared.infrastructure.mapper.MapperApiRest;
 import com.example.demo.shared.infrastructure.mapper.MapperRest;
 
+@Component
 public class ItemMapper implements MapperApiRest<Item, ItemDto>, MapperRest<Item, ItemRest> {
 
 	public Item dtoToDominio(ItemDto o) {
 		return Item.of(new Cantidad(o.getCantidad()), new ValorTotal(o.getValorTotal()),
-				Producto.of(new Nombre(o.getProducto().getNombre()), new Valor(o.getProducto().getValor()),
-						new Codigo(o.getProducto().getCodigo())));
+				Producto.of(new Codigo(o.getProducto().getCodigo()), new Nombre(o.getProducto().getNombre()), new Valor(o.getProducto().getValor())));
 	}
 
 	@Override
@@ -38,9 +40,8 @@ public class ItemMapper implements MapperApiRest<Item, ItemDto>, MapperRest<Item
 
 	public Item restToDominio(ItemRest b) {
 		return Item.of(new Cantidad(b.getCantidad()), new ValorTotal(b.getValorTotal()),
-				Producto.of(new Nombre(b.getProducto().getNombre()),
-						new Valor(b.getProducto().getValor()),
-						new Codigo(b.getProducto().getCodigo())));
+				Producto.of(new Codigo(b.getProducto().getCodigo()), new Nombre(b.getProducto().getNombre()),
+						new Valor(b.getProducto().getValor())));
 	}
 	
 	public ItemRest dominioToRest(Item a) {

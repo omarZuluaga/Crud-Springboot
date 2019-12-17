@@ -15,7 +15,7 @@ import com.example.demo.shared.infrastructure.mapper.MapperRest;
 public class ProductoMapper implements MapperApiRest<Producto, ProductoDto>, MapperRest<Producto, ProductoRest>{
 	@Override
 	public Producto dtoToDominio(ProductoDto o) { 
-		return Producto.of(new Nombre(o.getNombre()), new Valor(o.getValor()), new Codigo(o.getCodigo()));
+		return Producto.of(new Codigo(o.getCodigo()), new Nombre(o.getNombre()), new Valor(o.getValor()));
 	
 	}
 
@@ -31,7 +31,7 @@ public class ProductoMapper implements MapperApiRest<Producto, ProductoDto>, Map
 	@Override
 	public Producto restToDominio(ProductoRest b) {
 		
-		return Producto.of(new Nombre(b.getNombre()), new Valor(b.getValor()), new Codigo(b.getCodigo()));
+		return Producto.of(new Codigo(b.getCodigo()), new Nombre(b.getNombre()), new Valor(b.getValor()));
 	}
 
 	@Override

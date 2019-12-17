@@ -9,10 +9,10 @@ public class Producto {
 	private final Valor valor;
 	private final Codigo codigo;
 	
-	private Producto(Nombre nombre, Valor valor, Codigo codigo) {
+	private Producto(Codigo codigo, Nombre nombre, Valor valor) {
+		this.codigo = codigo;
 		this.nombre = nombre;
 		this.valor = valor;
-		this.codigo = codigo;
 	}
 	
 	public Nombre getNombre() {
@@ -27,7 +27,7 @@ public class Producto {
 		return codigo;
 	}
 	
-	public static Producto of(Nombre nombre, Valor valor, Codigo codigo) {
-		return new Producto(nombre, valor, codigo);
+	public static Producto of(Codigo codigo, Nombre nombre, Valor valor) {
+		return new Producto(codigo, nombre, valor);
 	}
 }	

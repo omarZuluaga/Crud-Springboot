@@ -4,16 +4,18 @@ import com.example.demo.dominio.models.Producto;
 
 
 public class ItemRest {
+	private String codigo;
 	private int cantidad;
 	private Double valorTotal;
 	private ProductoRest producto;
 	
 	public ItemRest() {
 	}
-	public ItemRest(int cantidad, Double valorTotal, ProductoRest producto) {
+	public ItemRest(String codigo,int cantidad, Double valorTotal, ProductoRest producto) {
 		this.setCantidad(cantidad);
 		this.setValorTotal(valorTotal);
 		this.setProducto(producto);
+		this.setCodigo(codigo);
 	}
 	public int getCantidad() {
 		return cantidad;
@@ -32,5 +34,11 @@ public class ItemRest {
 	}
 	public void setProducto(ProductoRest producto) {
 		this.producto = producto;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}
 }

@@ -11,8 +11,10 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.aplication.FacturaAplication;
 import com.example.demo.exceptions.RegistroNoEncontradoException;
 import com.example.demo.infraestructura.dto.FacturaDto;
+import com.example.demo.infraestructura.dto.FacturaRest;
 import com.example.demo.infraestructura.dto.ItemDto;
 import com.example.demo.infraestructura.dto.ProductoDto;
 import com.example.demo.infraestructura.repository.database.FacturaRepository;
@@ -25,30 +27,13 @@ public class FacturaController {
 	private FacturaRepository facturaRepository;
 	@Autowired
 	private ProductoRepository productoRepository;
+	@Autowired
+	private FacturaAplication facturaAplication;
 
 	@PostMapping()
-	void crearFactura(@RequestBody FacturaDto factura) {
-		List<String> codigos = new ArrayList();
-		for (ItemDto item : factura.getItems()) {
-			codigos.add(item.getProducto().getCodigo());
-		}
-		List<ItemDto> guardarEnFactura = new ArrayList();
-		List<ProductoDto> productos = productoRepository.findAllById(codigos);
-		Double vT = 0.0;
-		for (ItemDto item : factura.getItems()) {
-			for (ProductoDto pro : productos) {
-				if (pro.getCodigo().equals(item.getProducto().getCodigo())) {
-					item.setProducto(pro); 
-					item.setValorTotal(item.getCantidad()*pro.getValor());
-					vT = vT + (item.getCantidad() * pro.getValor());
-					guardarEnFactura.add(item);
-				}
-			}
-		}
-		factura.setValorTotal(vT);
-		factura.setItems(guardarEnFactura);
-		facturaRepository.save(factura);
-
+	void crearFactura(@RequestBody FacturaRest factura) {
+		factura.setCodigo(UUID.randomUUID().toString());
+		facturaAplication.crearFactura(factura);
 	}
 
 	@GetMapping()
