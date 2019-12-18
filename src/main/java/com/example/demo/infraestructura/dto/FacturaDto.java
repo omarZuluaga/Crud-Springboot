@@ -10,8 +10,6 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.example.demo.dto.BaseEntity;
-
 
 @Entity
 public class FacturaDto extends BaseEntity{

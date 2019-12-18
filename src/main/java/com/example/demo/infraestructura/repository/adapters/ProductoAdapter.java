@@ -1,6 +1,7 @@
 package com.example.demo.infraestructura.repository.adapters;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,8 +23,7 @@ public class ProductoAdapter implements ProductoService{
 
 	@Override
 	public List<Producto> buscarPorIds(List<Codigo> codigos) {
-		// TODO Auto-generated method stub
-		return null;
+		return productoMapper.listDtoToDominio(productoRepository.findAllById(codigos.stream().map(codigo -> codigo.getValue()).collect(Collectors.toList())));
 	}
 	
 	@Override

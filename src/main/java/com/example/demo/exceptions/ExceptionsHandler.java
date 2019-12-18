@@ -9,19 +9,17 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-import com.example.demo.dto.ErrorCode;
-
 @RestControllerAdvice
 public class ExceptionsHandler {
-	@ExceptionHandler(Exception.class)
-	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
-	public ErrorCode handlerException(Exception e) {
-		ErrorCode ec = new ErrorCode();
-		ec.setCodigo(this.Id());
-		ec.setMensaje("error papá");
-		logError(ec, e);
-		return ec;
-	}
+//	@ExceptionHandler(Exception.class)
+//	@ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+//	public ErrorCode handlerException(Exception e) {
+//		ErrorCode ec = new ErrorCode();
+//		ec.setCodigo(this.Id());
+//		ec.setMensaje("error papá");
+//		logError(ec, e);
+//		return ec;
+//	}
 	@ExceptionHandler(RegistroNoEncontradoException.class)
 	@ResponseStatus(HttpStatus.NOT_FOUND)
 	public ErrorCode registroNoEncontrado(RegistroNoEncontradoException e) {

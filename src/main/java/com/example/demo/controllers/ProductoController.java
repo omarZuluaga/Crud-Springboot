@@ -14,41 +14,46 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.aplication.ProductoAplication;
+//import com.example.demo.aplication.ProductoAplication;
+import com.example.demo.dominio.service.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
+import com.example.demo.shared.dominio.Codigo;
 
 @RequestMapping("/producto")
 @RestController
 public class ProductoController {
-	@Autowired
-	ProductoAplication productoAplication;
+//	@Autowired
+//	ProductoAplication productoAplication;
 	@Autowired
 	ProductoMapper productoMapper;
+	@Autowired
+	ProductoService productoService;
 
 	@RequestMapping(method = RequestMethod.POST)
 	public void agregar(@RequestBody ProductoRest producto) {
 		producto.setCodigo(UUID.randomUUID().toString());
-		productoAplication.crear(producto);
+		productoService.guardar(productoMapper.restToDominio(producto));
 	}
 
 	@GetMapping
 	public List<ProductoRest> consultarTodo() {
-		return productoAplication.consultar();
+		return productoMapper.listDominioToListRest(productoService.buscarTodo());
 	}
 
 	@GetMapping("/{codigo}")
 	public ProductoRest cosultarXId(@PathVariable String codigo) {
-		return productoAplication.consultarXId(codigo);
+		return productoMapper.dominioToRest(productoService.buscarXId(new Codigo(codigo)));
 	}
 
 	@DeleteMapping("/{codigo}")
 	public void eliminar(@PathVariable String codigo) {
-		productoAplication.eliminar(codigo);
+		productoService.eliminar(new Codigo(codigo));
 	}
 
 	@PutMapping
 	public void actualizar(@RequestBody ProductoRest producto) {
-		productoAplication.actualizar(producto);
+		productoMapper.dominioToRest(productoService.buscarXId(new Codigo(producto.getCodigo())));
+		productoService.actualizar(productoMapper.restToDominio(producto));
 	}
 }

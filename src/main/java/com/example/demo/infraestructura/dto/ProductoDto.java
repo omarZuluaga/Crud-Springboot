@@ -8,8 +8,6 @@ import javax.persistence.OneToOne;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import com.example.demo.dto.BaseEntity;
-
 @Entity
 public class ProductoDto extends BaseEntity{
 	

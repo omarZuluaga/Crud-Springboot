@@ -12,10 +12,11 @@ public class ItemRest {
 	public ItemRest() {
 	}
 	public ItemRest(String codigo,int cantidad, Double valorTotal, ProductoRest producto) {
+		this.setCodigo(codigo);
 		this.setCantidad(cantidad);
 		this.setValorTotal(valorTotal);
 		this.setProducto(producto);
-		this.setCodigo(codigo);
+		
 	}
 	public int getCantidad() {
 		return cantidad;
