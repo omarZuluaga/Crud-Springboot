@@ -99,6 +99,10 @@ public class FacturaAplication {
 			return facturaMapper.listDominioToListRest(facturaService.mostrarFacturas());
 	}
 	
+	public FacturaRest consultarXId(String codigo) {
+		return facturaMapper.dominioToRest(facturaService.buscarFacturaXId(new Codigo(codigo)));
+	}
+	
 	public void eliminar(String codigo) {
 		facturaService.eliminar(new Codigo(codigo));
 	}

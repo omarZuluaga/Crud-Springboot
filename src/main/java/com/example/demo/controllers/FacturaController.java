@@ -51,6 +51,11 @@ public class FacturaController {
 	public List<FacturaRest> consultar() {
 		return facturaAplication.consultar(); 
 	}
+	
+	@GetMapping("/{codigo}")
+	public FacturaRest consultarXId(@PathVariable String codigo) {
+		return facturaAplication.consultarXId(codigo);
+	}
 
 	@DeleteMapping("/{codigo}")
 	void eliminar(@PathVariable String codigo) {
