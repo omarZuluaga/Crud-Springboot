@@ -1,84 +1,105 @@
-//package com.example.demo.aplication;
-//
-//import java.util.ArrayList;
-//import java.util.List;
-//import java.util.UUID;
-//
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Component;
-//import org.springframework.web.bind.annotation.DeleteMapping;
-//import org.springframework.web.bind.annotation.GetMapping;
-//import org.springframework.web.bind.annotation.PathVariable;
-//import org.springframework.web.bind.annotation.RequestBody;
-//
-//import com.example.demo.dominio.models.Producto;
-//import com.example.demo.dominio.service.FacturaService;
-//import com.example.demo.dominio.service.ProductoService;
-//import com.example.demo.exceptions.RegistroNoEncontradoException;
-//import com.example.demo.infraestructura.dto.FacturaDto;
-//import com.example.demo.infraestructura.dto.FacturaRest;
-//import com.example.demo.infraestructura.dto.ItemDto;
-//import com.example.demo.infraestructura.dto.ItemRest;
-//import com.example.demo.infraestructura.dto.ProductoDto;
-//import com.example.demo.infraestructura.dto.ProductoRest;
-//import com.example.demo.infraestructura.mapper.FacturaMapper;
-//import com.example.demo.infraestructura.mapper.ProductoMapper;
-//import com.example.demo.infraestructura.repository.database.FacturaRepository;
-//import com.example.demo.infraestructura.repository.database.ProductoRepository;
-//
-//@Component
-//public class FacturaAplication {
-//	@Autowired
-//	public FacturaService facturaService;
-//	@Autowired
-//	public FacturaRepository facturaRepository;
-//	@Autowired
-//	private ProductoRepository productoRepository;
-//	@Autowired
-//	private ProductoMapper productoMapper;
-//	@Autowired
-//	private ProductoService productoService;
-//	@Autowired
-//	private FacturaMapper facturaMapper;
-//	
-//	public void crearFactura(FacturaRest factura) {
-//		FacturaRest f = factura;
-//		f.setCodigo(UUID.randomUUID().toString());
-//		f.setItems(this.cargarItems(f.getItems()));
-//		f.setValorTotal(this.calcularFactura(f.getItems()));
-//		
-//		facturaService.crearFactura(facturaMapper.restToDominio(f));
-//	}
-//	
-//	public List<ItemRest> cargarItems(List<ItemRest> items){
-//		for(ItemRest i : items) {
-//			i.setCodigo(UUID.randomUUID().toString());
-//			i.setProducto(this.cargarProducto(i.getProducto()));
-//			i.setValorTotal(i.getCantidad()*i.getProducto().getValor());
-//			items.add(i);
-//		}
-//		return items;
-//	}
-//	
-//	public Double calcularFactura(List<ItemRest> items) {
-//		Double total = 0.0;
-//		for(ItemRest i : items) {
-//			total = total + (i.getCantidad()*i.getProducto().getValor());
-//		}
-//		return total;
-//	}
-//	
-//	public ProductoRest cargarProducto(ProductoRest producto) {
-//		Producto p = productoMapper.restToDominio(producto);
-//		return productoMapper.dominioToRest(productoService.buscarXId(p.getCodigo()));
-//	}
-//
-//	public List<FacturaDto>consultar(){
-//			return facturaRepository.findAll();
-//	}
-//	
-//	void eliminar(String codigo) {
-//		facturaRepository.findById(codigo).orElseThrow(()-> new RegistroNoEncontradoException());
-//		facturaRepository.deleteById(codigo);
-//	}
-//}
+package com.example.demo.aplication;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+
+import com.example.demo.dominio.service.FacturaService;
+import com.example.demo.dominio.service.ProductoService;
+import com.example.demo.infraestructura.dto.FacturaRest;
+import com.example.demo.infraestructura.dto.ItemRest;
+import com.example.demo.infraestructura.dto.ProductoRest;
+import com.example.demo.infraestructura.mapper.FacturaMapper;
+import com.example.demo.infraestructura.mapper.ProductoMapper;
+import com.example.demo.shared.dominio.Codigo;
+
+
+
+public class FacturaAplication {
+	
+	public FacturaService facturaService;
+	
+	private ProductoMapper productoMapper;
+	
+	private ProductoService productoService;
+	
+	private FacturaMapper facturaMapper;
+	
+	
+	public FacturaAplication(FacturaService facturaService,
+			ProductoMapper productoMapper, ProductoService productoService, FacturaMapper facturaMapper) {
+		this.facturaService = facturaService;
+		this.productoMapper = productoMapper;
+		this.productoService = productoService;
+		this.facturaMapper = facturaMapper;
+	}
+
+	public void crearFactura(FacturaRest factura) {
+		FacturaRest f = factura;
+		f.setCodigo(UUID.randomUUID().toString());
+		f.setItems(this.cargarItems(f.getItems()));
+		f.setValorTotal(this.calcularFactura(f.getItems()));
+
+		facturaService.crearFactura(facturaMapper.restToDominio(f));
+	}
+
+	public List<ItemRest> cargarItems(List<ItemRest> items) {
+		List<ProductoRest> productos = cargarProductos(obtenerCodigos(items));
+
+		items.stream().forEach(
+
+				item -> {
+					item.setCodigo(UUID.randomUUID().toString());
+					item.setProducto(cargarProducto(productos, item.getCodigo()));
+					item.setValorTotal(item.getCantidad() * item.getProducto().getValor());
+
+					
+				}
+
+		);
+
+		return items;
+	}
+
+	public List<String> obtenerCodigos(List<ItemRest> items) {
+
+		return items.stream().map(item -> item.getProducto().getCodigo()).collect(Collectors.toList());
+	}
+
+	public Double calcularFactura(List<ItemRest> items) {
+		Double total = 0.0;
+		for (ItemRest i : items) {
+			total = total + (i.getCantidad() * i.getProducto().getValor());
+		}
+		return total;
+	}
+
+	public ProductoRest cargarProducto(List<ProductoRest> productos, String codigoProducto) {
+		ProductoRest producto = new ProductoRest();
+		for (ProductoRest pro : productos) {
+			producto.setCodigo(pro.getCodigo());
+			producto.setNombre(pro.getNombre());
+			producto.setValor(pro.getValor());
+		}
+		return producto;
+	}
+
+	public List<ProductoRest> cargarProductos(List<String> codigos) {
+		ArrayList<Codigo> consulta = new ArrayList<>();
+		for (String llega : codigos) {
+			consulta.add(new Codigo(llega));
+		}
+
+		return productoMapper.listDominioToListRest(productoService.buscarPorIds(consulta));
+	}
+
+	public List<FacturaRest>consultar(){
+			return facturaMapper.listDominioToListRest(facturaService.mostrarFacturas());
+	}
+	
+	public void eliminar(String codigo) {
+		facturaService.eliminar(new Codigo(codigo));
+	}
+}
