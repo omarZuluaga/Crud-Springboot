@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.dominio.models.Factura;
 //import com.example.demo.aplication.FacturaAplication;
 import com.example.demo.dominio.models.Producto;
 import com.example.demo.dominio.service.FacturaService;
@@ -57,19 +58,21 @@ public class FacturaController {
 		facturaService.crearFactura(facturaMapper.restToDominio(f));
 	}
 
-	public List<ItemRest> cargarItems(List<ItemRest> items){
-		List<ProductoRest> productos= cargarProductos(obtenerCodigos(items));
-		
+	public List<ItemRest> cargarItems(List<ItemRest> items) {
+		List<ProductoRest> productos = cargarProductos(obtenerCodigos(items));
+
 		items.stream().forEach(
 
-				item ->{ item.setProducto(cargarProducto(productos, item.getCodigo()));
-				item.setValorTotal(item.getCantidad()*item.getProducto().getValor());
+				item -> {
+					item.setCodigo(UUID.randomUUID().toString());
+					item.setProducto(cargarProducto(productos, item.getCodigo()));
+					item.setValorTotal(item.getCantidad() * item.getProducto().getValor());
+
+					
 				}
-				
-				
-				);
-		
-	
+
+		);
+
 		return items;
 	}
 
@@ -107,7 +110,8 @@ public class FacturaController {
 
 	@GetMapping()
 	public List<FacturaRest> consultar() {
-		return facturaMapper.listDominioToListRest(facturaService.mostrarFacturas());
+		List<Factura> dto = facturaService.mostrarFacturas();
+		return facturaMapper.listDominioToListRest(dto);
 	}
 
 	@DeleteMapping("/{codigo}")

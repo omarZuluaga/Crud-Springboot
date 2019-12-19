@@ -20,7 +20,7 @@ import com.example.demo.shared.infrastructure.mapper.MapperRest;
 public class ItemMapper implements MapperApiRest<Item, ItemDto>, MapperRest<Item, ItemRest> {
 
 	public Item dtoToDominio(ItemDto o) {
-		return Item.of(new Cantidad(o.getCantidad()), new ValorTotal(o.getValorTotal()),
+		return Item.of(new Codigo(o.getCodigo()),new Cantidad(o.getCantidad()), new ValorTotal(o.getValorTotal()),
 				Producto.of(new Codigo(o.getProducto().getCodigo()), new Nombre(o.getProducto().getNombre()), new Valor(o.getProducto().getValor())));
 	}
 
@@ -32,6 +32,7 @@ public class ItemMapper implements MapperApiRest<Item, ItemDto>, MapperRest<Item
 		pd.setValor(i.getProducto().getValor().getValue());
 
 		ItemDto it = new ItemDto();
+		it.setCodigo(i.getCodigo().getValue());
 		it.setCantidad(i.getCantidad().getValue());
 		it.setValorTotal(i.getValorTotal().getValue());
 		it.setProducto(pd);
@@ -39,18 +40,19 @@ public class ItemMapper implements MapperApiRest<Item, ItemDto>, MapperRest<Item
 	}
 
 	public Item restToDominio(ItemRest b) {
-		return Item.of(new Cantidad(b.getCantidad()), new ValorTotal(b.getValorTotal()),
+		return Item.of(new Codigo(b.getCodigo()) , new Cantidad(b.getCantidad()), new ValorTotal(b.getValorTotal()),
 				Producto.of(new Codigo(b.getProducto().getCodigo()), new Nombre(b.getProducto().getNombre()),
 						new Valor(b.getProducto().getValor())));
 	}
 	
 	public ItemRest dominioToRest(Item a) {
 		ProductoRest pr = new ProductoRest();
-		pr.setCodigo(a.getProducto().getNombre().getValue());
+		pr.setCodigo(a.getProducto().getCodigo().getValue());
 		pr.setNombre(a.getProducto().getNombre().getValue());
 		pr.setValor(a.getProducto().getValor().getValue());
 
 		ItemRest ir = new ItemRest();
+		ir.setCodigo(a.getCodigo().getValue());
 		ir.setCantidad(a.getCantidad().getValue());
 		ir.setValorTotal(a.getValorTotal().getValue());
 		ir.setProducto(pr); 
