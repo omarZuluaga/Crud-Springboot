@@ -46,11 +46,11 @@ public class FacturaController {
 	void crearFactura(@RequestBody FacturaRest factura) {
 		facturaAplication.crearFactura(factura);
 	}
-
+	
 	@GetMapping()
 	public List<FacturaRest> consultar() {
 		return facturaAplication.consultar(); 
-	}
+	}	
 	
 	@GetMapping("/{codigo}")
 	public FacturaRest consultarXId(@PathVariable String codigo) {

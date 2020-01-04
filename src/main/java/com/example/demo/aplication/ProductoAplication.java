@@ -1,5 +1,6 @@
 package com.example.demo.aplication;
 
+import java.io.FileNotFoundException;
 import java.util.*;
 
 
@@ -9,6 +10,8 @@ import com.example.demo.dominio.service.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
 import com.example.demo.shared.dominio.Codigo;
+
+import net.sf.jasperreports.engine.JRException;
 
 public class ProductoAplication {
 	
@@ -44,4 +47,7 @@ public class ProductoAplication {
 		productoService.actualizar(productoMapper.restToDominio(producto));
 	}
 
+	public String generarReporte() throws FileNotFoundException, JRException {
+		return productoService.exportReport();
+	}
 }

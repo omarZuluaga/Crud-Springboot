@@ -1,5 +1,6 @@
 package com.example.demo.controllers;
 
+import java.io.FileNotFoundException;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,8 @@ import com.example.demo.aplication.ProductoAplication;
 import com.example.demo.dominio.service.ProductoService;
 import com.example.demo.infraestructura.dto.ProductoRest;
 import com.example.demo.infraestructura.mapper.ProductoMapper;
+
+import net.sf.jasperreports.engine.JRException;
 
 
 @RequestMapping("/producto")
@@ -48,6 +51,11 @@ public class ProductoController {
 	public ProductoRest cosultarXId(@PathVariable String codigo) {
 		return productoAplication.cosultarXId(codigo);
 	}
+	
+	@GetMapping("/report")
+	public String generarReporte() throws FileNotFoundException, JRException {
+		return productoAplication.generarReporte();
+	}
 
 	@DeleteMapping("/{codigo}")
 	public void eliminar(@PathVariable String codigo) {
@@ -58,4 +66,5 @@ public class ProductoController {
 	public void actualizar(@RequestBody ProductoRest producto) {
 		productoAplication.actualizar(producto);
 	}
+	
 }

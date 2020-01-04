@@ -54,8 +54,6 @@ public class FacturaAplication {
 					item.setCodigo(UUID.randomUUID().toString());
 					item.setProducto(cargarProducto(productos, item.getCodigo()));
 					item.setValorTotal(item.getCantidad() * item.getProducto().getValor());
-
-					
 				}
 
 		);
@@ -83,7 +81,7 @@ public class FacturaAplication {
 			producto.setNombre(pro.getNombre());
 			producto.setValor(pro.getValor());
 		}
-		return producto;
+		return producto; 
 	}
 
 	public List<ProductoRest> cargarProductos(List<String> codigos) {
