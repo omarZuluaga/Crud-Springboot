@@ -4,7 +4,16 @@
 	<queryString language="SQL">
 		<![CDATA[SELECT * from producto_dto]]>
 	</queryString>
-	
+	<field name="codigo" class="java.lang.String">
+	</field>
+	<field name="nombre" class="java.lang.String">
+	</field>
+	<field name="fechaCreacion" class="java.util.Date">
+	</field>
+	<field name="fechaActualizacion" class="java.util.Date">
+	</field>
+	<field name="valor" class="java.lang.Double">
+	</field>
 	<background>
 		<band/>
 	</background>
